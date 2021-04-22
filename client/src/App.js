@@ -62,14 +62,14 @@ const filteredTodos = todos.filter(todo => todo.date === searchDate)
   return (
     <div className="App">
       <Header className="fixed"/>
-      <div className="flex border-2">
+      <div className="flex border-2 h-full">
         <div className="flex-initial" >
           <Leftpannel selectedDate={selectedDate} setSelectedDate={handleOnChange} />
         </div>
-        <div className="flex-auto border-l-2 border-red-500">
+        <div className="flex-auto border-l-2 border-r-2 border-red-500 h-screen">
           <Todos className="flex" todos={filteredTodos} onToggle={toggleStatus} />
         </div>
-        <div className="flex-initial items-center">
+        <div className="flex-1 items-center">
           <Rightpannel className="flex" onAdd={addTodo} />
         </div>
       </div>
