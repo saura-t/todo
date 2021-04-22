@@ -1,19 +1,9 @@
 import DateFnsUtils from '@date-io/date-fns';
 import { DatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
-import React, { useState } from 'react'
+import React from 'react'
 
-const Leftpannel = ({searchTodo}) => {
-    const [selectedDate, setSelectedDate] = useState(new Date());
-
-    const handleOnChange = (Date) => {
-        setSelectedDate(Date)
-
-    //     var mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
-
-    //     var date = Date.getDate() + " " + mon[Date.getMonth()] + ", " + Date.getFullYear()
-
-    //    searchTodo({date})
-    }
+const Leftpannel = ({selecteDate, setSelectedDate}) => {
+    // const [selectedDate, setSelectedDate] = useState(new Date());
 
     return (
         <div className="p-4">
@@ -22,8 +12,8 @@ const Leftpannel = ({searchTodo}) => {
                 label="Date"
                 variant='inline'
                 format="dd MMM, yyyy"
-                value={selectedDate} 
-                onChange={handleOnChange} />
+                value={selecteDate} 
+                onChange={setSelectedDate} />
             </MuiPickersUtilsProvider>
         </div>
     )

@@ -29,6 +29,8 @@ function App() {
       status: false,
     }
   ])
+
+  const [selectedDate, setSelectedDate] = useState(new Date())
   
   const toggleStatus = (id) => {
     setTodos(todos.map((todo) => todo.id === id ? {...todo, status: !todo.status} : todo))
@@ -42,6 +44,16 @@ function App() {
     
   }
 
+  const handleOnChange = (Date) => {
+    setSelectedDate(Date)
+}
+
+const mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
+
+const searchDate = selectedDate.getDate() + " " + mon[selectedDate.getMonth()] + ", " + selectedDate.getFullYear()
+
+const filteredTodos = todos.filter(todo => todo.date === searchDate)
+
   // const getTodo = (date) => {
   //   setTodos(todos.map((todo) => todo.date === date ? 
   //   console.log(todo) : todo))
@@ -52,10 +64,10 @@ function App() {
       <Header className="fixed"/>
       <div className="flex border-2">
         <div className="flex-initial" >
-          <Leftpannel />
+          <Leftpannel selectedDate={selectedDate} setSelectedDate={handleOnChange} />
         </div>
         <div className="flex-auto border-l-2 border-red-500">
-          <Todos className="flex" todos={todos} onToggle={toggleStatus} />
+          <Todos className="flex" todos={filteredTodos} onToggle={toggleStatus} />
         </div>
         <div className="flex-initial items-center">
           <Rightpannel className="flex" onAdd={addTodo} />
