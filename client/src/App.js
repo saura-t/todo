@@ -69,7 +69,7 @@ const filteredTodos = todos.filter(todo => todo.date === searchDate)
         <div className="flex-auto border-l-2 border-r-2 border-red-500 h-screen">
           <Todos className="flex" todos={filteredTodos} onToggle={toggleStatus} />
         </div>
-        <div className="flex-1 items-center">
+        <div className="flex-initial items-center">
           <Rightpannel className="flex" onAdd={addTodo} />
         </div>
       </div>

@@ -1,11 +1,15 @@
 const Todo = ({todo, onToggle}) => {
 
     return (
-        <div className="flex items-baseline px-4 pt-4">
+        <div className="flex items-center px-4 pt-4">
             <input type='checkbox'
+            className="flex items-center p-2"
             value={todo.status}
             onChange={() => onToggle(todo.id)} />
-            <h4 className={`ml-2 font-sans ${todo.status ? 'line-through' : ' text-red-700'}`} >{todo.title} </h4>
+            <div className="flex flex-col ml-4 font-sans">
+                <h4 className={`flex ${todo.status ? 'line-through' : ' text-red-700'}`} >{todo.title} </h4>
+                <p className={`flex ${todo.status ? 'line-through' : ''}`} > {todo.time} </p>
+            </div>
         </div>
     )
 }
