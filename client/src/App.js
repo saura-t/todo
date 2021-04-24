@@ -10,8 +10,14 @@ function App() {
   const [todos, setTodos] = useState([])
   const [selectedDate, setSelectedDate] = useState(new Date())
 
-  useEffect(() => {
-    axios.get('http://localhost:4000/app/todos')
+  const toggleStatus = (id) => {
+    setTodos(filteredTodos.map((todo) => todo.id === id ? {...todo, status: !todo.status} : todo))
+  }
+
+  const addTodo = (todo) => {
+    axios.post('http://localhost:4000/app/addtodo', todo)
+    .then(response => {
+      axios.get('http://localhost:4000/app/todos')
       .then((response) => {
         const data = response.data;
         setTodos(data);
@@ -20,15 +26,8 @@ function App() {
       .catch(() => {
         console.log('Data lost')
       })
-  }, [])
-  
-  const toggleStatus = (id) => {
-    setTodos(todos.map((todo) => todo.id === id ? {...todo, status: !todo.status} : todo))
-  }
-
-  const addTodo = (todo) => {
-    axios.post('http://localhost:4000/app/addtodo', todo)
-    .then(response => console.log(response.data))
+      console.log(response.data)
+    })
   }
 
   const handleOnChange = (Date) => {
@@ -38,6 +37,18 @@ function App() {
 const mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
 
 const searchDate = selectedDate.getDate() + " " + mon[selectedDate.getMonth()] + ", " + selectedDate.getFullYear()
+
+useEffect(() => {
+  axios.get('http://localhost:4000/app/todos')
+    .then((response) => {
+      const data = response.data;
+      setTodos(data);
+      console.log('Data received')
+    })
+    .catch(() => {
+      console.log('Data lost')
+    })
+}, [])
 
 const filteredTodos = todos.filter(todo => todo.date === searchDate)
 

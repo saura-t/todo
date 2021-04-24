@@ -24,7 +24,7 @@ const Rightpannel = ({ onAdd }) => {
         onAdd({title, date, time, status})
 
         setTitle('')
-        setSelectedDate(Date)
+        setSelectedDate(new Date())
     }
 
     return (
