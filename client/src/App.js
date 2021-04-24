@@ -1,47 +1,34 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Header from './components/Header';
 import Leftpannel from './components/Leftpannel';
 import Rightpannel from './components/Rightpannel';
 import Todos from './components/Todos';
+import axios from 'axios'
 
 function App() {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      title: "Doctors Appointment",
-      date: "20 Apr, 2021",
-      time: "12:10",
-      status: false
-    },
-    {
-      id: 2,
-      title: "Doctors",
-      date: "29 Apr, 2021",
-      time: "10:10",
-      status: false
-    },
-    {
-      id: 3,
-      title: "Appointment",
-      date: "5 May, 2021",
-      time: "19:10",
-      status: false,
-    }
-  ])
-
+  const [todos, setTodos] = useState([])
   const [selectedDate, setSelectedDate] = useState(new Date())
+
+  useEffect(() => {
+    axios.get('http://localhost:4000/app/todos')
+      .then((response) => {
+        const data = response.data;
+        setTodos(data);
+        console.log('Data received')
+      })
+      .catch(() => {
+        console.log('Data lost')
+      })
+  }, [])
   
   const toggleStatus = (id) => {
     setTodos(todos.map((todo) => todo.id === id ? {...todo, status: !todo.status} : todo))
   }
 
   const addTodo = (todo) => {
-    const id = Math.floor(Math.random() * 99999) + 1
-
-    const newTodo = { id, ...todo}
-    setTodos([ ...todos, newTodo])
-    
+    axios.post('http://localhost:4000/app/addtodo', todo)
+    .then(response => console.log(response.data))
   }
 
   const handleOnChange = (Date) => {
@@ -53,11 +40,6 @@ const mon = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oc
 const searchDate = selectedDate.getDate() + " " + mon[selectedDate.getMonth()] + ", " + selectedDate.getFullYear()
 
 const filteredTodos = todos.filter(todo => todo.date === searchDate)
-
-  // const getTodo = (date) => {
-  //   setTodos(todos.map((todo) => todo.date === date ? 
-  //   console.log(todo) : todo))
-  // }
 
   return (
     <div className="App">

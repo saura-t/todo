@@ -19,7 +19,7 @@ const Rightpannel = ({ onAdd }) => {
 
         var date = selectedDate.getDate() + " " + mon[selectedDate.getMonth()] + ", " + selectedDate.getFullYear()
 
-        var time = selectedDate.getHours() + " : " + selectedDate.getMinutes()
+        var time = selectedDate.getHours() + ":" + selectedDate.getMinutes()
 
         onAdd({title, date, time, status})
 
