@@ -11,7 +11,18 @@ function App() {
   const [selectedDate, setSelectedDate] = useState(new Date())
 
   const toggleStatus = (id) => {
-    setTodos(filteredTodos.map((todo) => todo.id === id ? {...todo, status: !todo.status} : todo))
+    setTodos(filteredTodos.map((todo) => todo._id === id ? {...todo, status: !todo.status} : todo))
+
+    // console.log(filteredTodos.map((todo) => todo._id === id ? todo.status : ""));
+    
+    axios.put(`http://localhost:4000/app/status/${id}`)
+      .then(response => {
+        const data = response.data;
+        console.log('Data Updated',data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
   }
 
   const addTodo = (todo) => {
@@ -21,7 +32,7 @@ function App() {
       .then((response) => {
         const data = response.data;
         setTodos(data);
-        console.log('Data received')
+        console.log('Data received',data)
       })
       .catch(() => {
         console.log('Data lost')

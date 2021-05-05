@@ -1,1 +1,1 @@
-GET http://localhost:4000/app/todos
+PUT http://localhost:4000/app/status/6082eeab96e1c54c7c162059

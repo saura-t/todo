@@ -31,4 +31,33 @@ router.post('/addtodo', (request, response) => {
     })
 })
 
+router.put('/status/:id', (request, response) => {
+    // var conditions = { _id: request.params.id };
+
+    // addTodoCopy.updateOne(conditions, {status:(request.body.status)})
+    //     .then(res => {
+    //         if(!res) { return response.status(404).end(); }
+    //         return response.status(200).json(res);
+    //     })
+    //     .catch(error => next(error));
+
+    var id = request.params.id;
+
+    addTodoCopy.findById(id, function (error, todo){
+        todo.status = !todo.status;
+        todo.save(function (error) {
+            if(error){
+                console.log('Error!');
+            }
+        })
+    })
+
+    // addTodoCopy.findByIdAndUpdate(id, {status:!request.body.status})
+    //     .then(result => {
+    //         if(!result) { return response.status(404).end(); }
+    //         return response.status(200).json(request.body.status)
+    //     })
+    //     .catch(error => next(error))
+})
+
 module.exports = router
